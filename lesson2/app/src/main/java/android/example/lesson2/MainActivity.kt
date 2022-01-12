@@ -8,7 +8,7 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
     private var number1:Int = 5
     private var number2:Int = 6
-    private var text:String = "В <магазине> осталось яблока а может и <больше кто знает> и <один> <два> <три>"
+    private var text:String = "В <магазине> осталось 123 яблока а может и <больше кто знает> всем привет <как> у вас дела <надеюсь> не <болеете>"
     private var tvText: TextView? = null
     private var tvText2: TextView? = null
 
@@ -22,12 +22,39 @@ class MainActivity : AppCompatActivity() {
         var subText3:String = text.substringAfter('>')
         var subText4:String = subText3.substringAfter('<')
         var subText5:String = subText4.substringBefore('>')
-        var counter:Int
-        for (n in 0 until text.length -1)
+        var subText6:String = text.substring(3,9)
+        var counter:Int = 0
+
+
+        for (n in text.indices)
         {
-            if(text.get(n)== '<') counter
+            if(text.get(n)== '<') counter++
         }
-        //tvText?.setText(subText2)
+        var startPosition = IntArray(counter)
+        var endPosition = IntArray(counter)
+        var startPcounter:Int =0
+        var endPcounter:Int =0
+        for (n in text.indices)
+        {
+            if(text.get(n)== '<')
+            {
+                startPosition[startPcounter] = n
+                startPcounter++
+            }
+
+            if(text.get(n)== '>')
+            {
+                endPosition[endPcounter] = n
+                endPcounter++
+            }
+        }
+        var textFoundAray = Array(counter){""}
+        for (n in startPosition.indices)
+        {
+            textFoundAray[n] = text.substring(startPosition[n] + 1,endPosition[n])
+            Log.d("MyLog", "Text from n: " +textFoundAray[n])
+        }
+
         tvText?.setText(counter.toString())
         tvText2?.setText(subText5)
     }
