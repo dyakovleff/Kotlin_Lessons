@@ -55,8 +55,11 @@ class MainActivity : AppCompatActivity() {
             Log.d("MyLog", "Text from n: " +textFoundAray[n])
         }
 
-        tvText?.setText(counter.toString())
-        tvText2?.setText(subText5)
+        val str = textFoundAray.fold("") { acc, item -> acc + " $item" }
+
+        tvText2?.setText("Количество найденых слов: " + counter.toString())
+        //tvText2?.setText(subText5)
+        tvText?.setText(str)
     }
 
 
